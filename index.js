@@ -1,5 +1,6 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const fs = require('fs');
 
 // TODO: Create an array of questions for user input
 const questions = [];
@@ -8,7 +9,9 @@ let dataToWrite = "";
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    console.log(data)
+    fs.writeFile(fileName, data, (err) =>
+        err ? console.error(err) : console.log("File written successfully.")
+    );
 }
 
 // TODO: Create a function to initialize app
@@ -48,8 +51,12 @@ function init() {
                 message: 'What tests can be performed with this app?'
             },
             {
-                name: 'questions',
-                message: 'How can you be reached for additional questions?'
+                name: 'github',
+                message: 'Enter the link to your Github:'
+            },
+            {
+                name: 'email',
+                message: 'Enter your email address:'
             },
         ])
         .then(answers => {
@@ -84,7 +91,7 @@ ${answers.credits}
 
 ${answers.license}
 
-## How to Contribute
+## Contribute
 
 ${answers.contributing}
 
@@ -94,7 +101,7 @@ ${answers.tests}
 
 ## Questions
 
-${answers.questions}`;
+I can be reached for additional questions by email at ${answers.email} or on Github at ${answers.github}.`;
 
             writeToFile("README.md", dataToWrite);
         })
