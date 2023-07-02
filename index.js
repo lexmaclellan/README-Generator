@@ -1,5 +1,6 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const fs = require('fs');
 
 // TODO: Create an array of questions for user input
 const questions = [];
@@ -8,7 +9,9 @@ let dataToWrite = "";
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    console.log(data)
+    fs.writeFile(fileName, data, (err) =>
+        err ? console.error(err) : console.log("File written successfully.")
+    );
 }
 
 // TODO: Create a function to initialize app
@@ -36,8 +39,10 @@ function init() {
                 message: 'List any collaborators or third-party assets:'
             },
             {
+                type: 'list',
                 name: 'license',
-                message: 'Enter license information:'
+                message: 'Enter license information:',
+                choices: ['Apache', 'BSD', 'Creative Commons', 'MIT']
             },
             {
                 name: 'contributing',
@@ -48,8 +53,12 @@ function init() {
                 message: 'What tests can be performed with this app?'
             },
             {
-                name: 'questions',
-                message: 'How can you be reached for additional questions?'
+                name: 'github',
+                message: 'Enter the link to your Github:'
+            },
+            {
+                name: 'email',
+                message: 'Enter your email address:'
             },
         ])
         .then(answers => {
@@ -82,9 +91,9 @@ ${answers.credits}
 
 ## License
 
-${answers.license}
+${getLicenseInfo(answers.license)}
 
-## How to Contribute
+## Contribute
 
 ${answers.contributing}
 
@@ -94,10 +103,23 @@ ${answers.tests}
 
 ## Questions
 
-${answers.questions}`;
+I can be reached for additional questions by email at ${answers.email} or on Github at ${answers.github}.`;
 
             writeToFile("README.md", dataToWrite);
         })
+}
+
+function getLicenseInfo(license) {
+    switch (license) {
+        case "Apache":
+            return "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+        case "BSD":
+            return "[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)";
+        case "Creative Commons":
+            return "[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)";
+        case "MIT":
+            return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+    }
 }
 
 // Function call to initialize app
