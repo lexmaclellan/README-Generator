@@ -39,8 +39,10 @@ function init() {
                 message: 'List any collaborators or third-party assets:'
             },
             {
+                type: 'list',
                 name: 'license',
-                message: 'Enter license information:'
+                message: 'Enter license information:',
+                choices: ['Apache', 'BSD', 'Creative Commons', 'MIT']
             },
             {
                 name: 'contributing',
@@ -89,7 +91,7 @@ ${answers.credits}
 
 ## License
 
-${answers.license}
+${getLicenseInfo(answers.license)}
 
 ## Contribute
 
@@ -105,6 +107,19 @@ I can be reached for additional questions by email at ${answers.email} or on Git
 
             writeToFile("README.md", dataToWrite);
         })
+}
+
+function getLicenseInfo(license) {
+    switch (license) {
+        case "Apache":
+            return "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+        case "BSD":
+            return "[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)";
+        case "Creative Commons":
+            return "[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)";
+        case "MIT":
+            return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+    }
 }
 
 // Function call to initialize app
