@@ -19,11 +19,11 @@ N/A
 
 ## Usage
 
-Run "node index.js" and answer the prompts.
+Run "node index.js" and answer the prompts. See [demo video](https://github.com/lexrayne/README-Generator/raw/main/demo.mp4).
 
 ## Credits
 
-None
+N/A
 
 ## License
 
