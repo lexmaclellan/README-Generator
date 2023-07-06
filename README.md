@@ -19,11 +19,11 @@ N/A
 
 ## Usage
 
-Run "node index.js" and answer the prompts.
+Run "node index.js" and answer the prompts. See [demo video](https://drive.google.com/file/d/1XcOmPz8zFxiOm803dzWJKyF0H98EBMIZ/view?usp=sharing).
 
 ## Credits
 
-None
+N/A
 
 ## License
 
